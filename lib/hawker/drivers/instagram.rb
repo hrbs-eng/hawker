@@ -1,4 +1,4 @@
-require 'json'
+require "json"
 
 module Hawker
   module Drivers
@@ -53,8 +53,22 @@ module Hawker
         json["entry_data"]["ProfilePage"].first["graphql"]["user"]["username"]
       end
 
-      private
+      # The current images shown in the Instagram user page
+      #
+      # @return [Array]
+      def images()
+        images = json["entry_data"]["ProfilePage"].first["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"]
+        images.map do |img|
+          {
+            image_url: img["node"]["display_url"],
+            caption: img["node"]["edge_media_to_caption"]["edges"].first["node"]["text"],
+          }
+        end
+      end
 
+      # The scraped JSON object
+      #
+      # @return [Object]
       def json
         @json ||= begin
           raw_json = html.to_s.match(/window\._sharedData =.*(?=;)/)
