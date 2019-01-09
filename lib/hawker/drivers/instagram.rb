@@ -62,6 +62,8 @@ module Hawker
           {
             image_url: img["node"]["display_url"],
             caption: img["node"]["edge_media_to_caption"]["edges"].first["node"]["text"],
+            shortcode: img["node"]["shortcode"],
+            url: "https://instagram.com/p/#{img["node"]["shortcode"]}/",
           }
         end
       end
