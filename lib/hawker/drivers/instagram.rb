@@ -61,6 +61,7 @@ module Hawker
         images.map do |img|
           {
             image_url: img["node"]["display_url"],
+            thumbnail_url: img["node"]["thumbnail_src"],
             caption: img["node"]["edge_media_to_caption"]["edges"].first["node"]["text"],
             shortcode: img["node"]["shortcode"],
             url: "https://instagram.com/p/#{img["node"]["shortcode"]}/",
